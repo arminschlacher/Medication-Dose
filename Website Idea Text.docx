@@ -1,0 +1,7 @@
+Interface that has a database in the background with Standard Operatin Procedures with the correct dose in mg / kg for medication. 
+
+The first input is a dropdown menu to select the medication
+
+second input is the patient weight. 
+
+output is the correct dose. 

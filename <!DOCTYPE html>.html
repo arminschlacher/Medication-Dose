@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drug Dose Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label, select, input, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      font-size: 1em;
+    }
+    #result {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Drug Dose Calculator</h2>
+
+  <label for="medication">Select Medication:</label>
+  <select id="medication">
+    <option value="">-- Choose a drug --</option>
+    <option value="paracetamol">Paracetamol</option>
+    <option value="ibuprofen">Ibuprofen</option>
+    <option value="amoxicillin">Amoxicillin</option>
+    <option value="ketamin">Ketamin</option>
+  </select>
+
+  <label for="weight">Patient Weight (kg):</label>
+  <input type="number" id="weight" placeholder="Enter weight in kg">
+
+  <button onclick="calculateDose()">Calculate Dose</button>
+
+  <div id="result"></div>
+
+  <script>
+    // "Database" of SOP dose values in mg/kg
+    const SOP_DATABASE = {
+      paracetamol: 15,     // 15 mg/kg
+      ibuprofen: 10,       // 10 mg/kg
+      amoxicillin: 20,     // 20 mg/kg
+      ketamin: 0.125       // 0.125 mg/kg
+    };
+
+    function calculateDose() {
+      const med = document.getElementById("medication").value;
+      const weight = parseFloat(document.getElementById("weight").value);
+      const resultDiv = document.getElementById("result");
+
+      if (!med || isNaN(weight) || weight <= 0) {
+        resultDiv.textContent = "⚠️ Please select a medication and enter a valid weight.";
+        return;
+      }
+
+      // Calculate dose according to SOP
+      const dosePerKg = SOP_DATABASE[med];
+      const totalDose = dosePerKg * weight;
+
+      resultDiv.textContent = `Recommended dose: ${totalDose.toFixed(1)} mg`;
+    }
+  </script>
+</body>
+</html>
