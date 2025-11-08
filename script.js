@@ -1,40 +1,26 @@
-const ketaminDoses = {
-    10: 1.25,
-    20: 2.5,
-    30: 3.75,
-    40: 5.0,
-    50: 6.25,
-    60: 7.5,
-    70: 8.75,
-    80: 10.0,
-    90: 11.25,
-    100: 12.5
-};
-
-// Placeholder for dose calculation logic
-document.getElementById('doseForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const medication = document.getElementById('medication').value;
-    const weight = parseFloat(document.getElementById('weight').value);
-    let doseMgPerKg = 10; // Example value
-    let totalDose;
-    if (medication === 'med2') doseMgPerKg = 5;
-    if (medication === 'ketamin') {
-        // Runde Gewicht auf nächsten 10er Schritt
+fetch('medication_doses.json')
+  .then(response => response.json())
+  .then(doses => {
+    document.getElementById('doseForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const medication = document.getElementById('medication').value;
+      const weight = parseFloat(document.getElementById('weight').value);
+      let doseMgPerKg = doses[medication]?.mg_per_kg || 0;
+      let totalDose;
+      if (medication === 'ketamin' && doses.ketamin.table) {
         const roundedWeight = Math.round(weight / 10) * 10;
-        if (ketaminDoses[roundedWeight]) {
-            totalDose = ketaminDoses[roundedWeight];
-            doseMgPerKg = 0.125;
+        if (doses.ketamin.table[roundedWeight]) {
+          totalDose = doses.ketamin.table[roundedWeight];
         } else {
-            totalDose = doseMgPerKg * weight;
-            doseMgPerKg = 0.125;
+          totalDose = doseMgPerKg * weight;
         }
-    } else {
+      } else {
         totalDose = doseMgPerKg * weight;
-    }
-    if (!medication || isNaN(weight) || weight <= 0) {
+      }
+      if (!medication || isNaN(weight) || weight <= 0) {
         document.getElementById('result').textContent = 'Please select a medication and enter a valid weight.';
         return;
-    }
-    document.getElementById('result').textContent = `Dose: ${totalDose} mg (${doseMgPerKg} mg/kg)`;
-});
+      }
+      document.getElementById('result').textContent = `Dose: ${totalDose} mg (${doseMgPerKg} mg/kg)`;
+    });
+  });
