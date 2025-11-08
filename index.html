@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medication Dose Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 400px; margin: auto; }
+        label, select, input { display: block; margin-bottom: 15px; width: 100%; }
+        #result { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Medication Dose Calculator</h2>
+        <form id="doseForm">
+            <label for="medication">Select Medication:</label>
+            <select id="medication" name="medication">
+                <option value="">--Choose--</option>
+                <option value="med1">Medication 1</option>
+                <option value="med2">Medication 2</option>
+                <!-- Add more medications as needed -->
+            </select>
+
+            <label for="weight">Patient Weight (kg):</label>
+            <input type="number" id="weight" name="weight" min="0" step="any" required>
+
+            <button type="submit">Calculate Dose</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        // Placeholder for dose calculation logic
+        document.getElementById('doseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const medication = document.getElementById('medication').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            // Example: Replace with real dose lookup
+            let doseMgPerKg = 10; // Example value
+            if (medication === 'med2') doseMgPerKg = 5;
+            if (!medication || isNaN(weight) || weight <= 0) {
+                document.getElementById('result').textContent = 'Please select a medication and enter a valid weight.';
+                return;
+            }
+            const totalDose = doseMgPerKg * weight;
+            document.getElementById('result').textContent = `Dose: ${totalDose} mg (${doseMgPerKg} mg/kg)`;
+        });
+    </script>
+</body>
+</html>
