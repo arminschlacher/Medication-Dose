@@ -1,7 +1,19 @@
-Interface that has a database in the background with Standard Operatin Procedures with the correct dose in mg / kg for medication. 
+Website Requirements:
 
-The first input is a dropdown menu to select the medication
+- Interface with a database containing Standard Operating Procedures and correct medication doses (mg/kg).
+- First input: Dropdown menu to select medication.
+- Second input: Field to enter patient weight.
+- Output: Display the correct dose based on selection and input.
 
-second input is the patient weight. 
+To-Do List:
 
-output is the correct dose. 
+1. Design the user interface (dropdown, input field, output area).
+2. Set up the database with medication names and mg/kg doses.
+3. Create backend logic to handle requests and calculate doses.
+4. Connect frontend to backend (send selected medication and weight).
+5. Implement dose calculation and display result.
+6. Test with sample data and user inputs.
+7. Add error handling (invalid input, missing data).
+8. (Optional) Add Standard Operating Procedures display or links.
+9. Deploy the website for use.
+
